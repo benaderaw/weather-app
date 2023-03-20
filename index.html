@@ -36,17 +36,33 @@
       </div>
 
       <div class="display-container">
-        <img src="src/img/404.png" alt="" />
-        <p class="mesaage invalid-message">
-          Oops, you have entered an invalid location.
-        </p>
+        <div class="invalid hidden">
+          <img
+            src="src/img/404.png"
+            alt="invalid-location-img"
+            class="img-404"
+          />
+          <p class="message invalid-message">Oops, invalid location</p>
+        </div>
+
+        <div class="weather-imgs ">
+          <img src="src/img/cloud.png" alt="clear" class="temp-img" />
+          <p class="temp">30&#176</p>
+          <p class="message temp-description">Cloudy Sky</p>
+        </div>
       </div>
 
       <div class="detail-container">
-        <i class="material-symbols-outlined">water</i>
-        <p class="water-detail">water</p>
-        <i class="material-symbols-outlined">air</i>
-        <p class="wind-detail">air</p>
+        <div class="humidity-detail">
+            <i class="material-symbols-outlined">water</i>
+            <p class="humidity-percent">91%</p>
+            <p class="humidity">humidity</p>
+        </div>
+        <div class="wind-detail">
+            <i class="material-symbols-outlined">air</i>
+            <p class="wind-speed">1km/h</p>
+            <p class="wind">wind-speed</p>
+        </div>
       </div>
     </div>
   </body>
