@@ -29,7 +29,7 @@ body {
 .container {
   display: relative;
   width: 410px;
-  height: 605px;
+  height: min-content;
   padding: 25px;
   background-color: var(--container-color);
   border-radius: 15px;
@@ -114,18 +114,18 @@ body {
   margin-bottom: 50px;
 }
 
+.img-404 {
+  width: 80%;
+  height: auto;
+  margin-bottom: 60px;
+}
+
 .invalid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 40px;
   margin-bottom: 30px;
-}
-
-.img-404 {
-  width: 80%;
-  height: auto;
-  margin-bottom: 40px;
 }
 
 .invalid-message {
@@ -170,6 +170,7 @@ body {
   padding: 0px 30px 0px 30px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .water-icon,
