@@ -66,17 +66,18 @@ body {
   transition: 0.5s ease;
 }
 
-.location-icon {
-  color: rgb(105, 105, 105);
-  font-size: 40px;
-  font-weight: 500;
-}
-
 .search-icon {
   font-size: 25px;
   font-weight: 700;
 }
 
+.location-icon {
+  color: rgb(105, 105, 105);
+  font-size: 38px;
+  font-weight: 500;
+}
+
 .search-btn:hover {
-  background-color: rgb(122, 177, 255);
+  background-color: rgb(33, 55, 88);
+  color: wheat;
 }
