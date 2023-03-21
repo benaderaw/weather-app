@@ -1,3 +1,10 @@
+import rain from "url:../img/404.png";
+import clear from "url:../img/clear.png";
+import clouds from "url:../img/cloud.png";
+import mist from "url:../img/mist.png";
+import rain from "url:../img/rain.png";
+import snow from "url:../img/snow.png";
+
 const tempImg = document.querySelector(".temp-img");
 const temp = document.querySelector(".temp");
 const tempDescription = document.querySelector(".temp-description");
@@ -8,13 +15,38 @@ const state = {
   weather: {},
 };
 
-let lat = 90;
-let lang = 0;
+let lat;
+let lng;
+const country = "";
+
+navigator.geolocation.getCurrentPosition(function success(pos) {
+  lat = pos.coords;
+  lng = pos.coords;
+});
+
+const locationData = async function () {
+  try {
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${country || "usa"}`
+    );
+
+    if (!res.ok) throw new Error(`🛑🛑🛑`);
+    const resData = await res.json();
+    const data = resData[0].latlng;
+
+    lat = data[0];
+    lng = data[1];
+  } catch (err) {
+    console.error(err.message);
+  }
+};
 
 const weatherData = async function () {
   try {
+    await locationData();
+
     const res = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lang}&exclude=hourly,daily&appid=af6d9ef7cd7b37ca607d6e46c77bdc2c`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&exclude=hourly,daily&appid=af6d9ef7cd7b37ca607d6e46c77bdc2c`
     );
 
     if (!res.ok) throw new Error(`${res.status}: ${res.statusText} 🛑`);
@@ -44,19 +76,34 @@ const weatherData = async function () {
 const renderWeatherImg = function (data) {
   const forecast = data.forecast.toLowerCase().split(" ");
 
-  if (forecast.includes("clear")) return (tempImg.src = "/src/img/clear.png");
+  if (forecast.includes("clear")) {
+    tempImg.alt = data.tempDescription;
+    return (tempImg.src = clear);
+  }
 
-  if (forecast.includes("cloud")) return (tempImg.src = "/src/img/cloud.png");
+  if (forecast.includes("clouds")) {
+    tempImg.alt = data.tempDescription;
+    return (tempImg.src = clouds);
+  }
 
-  if (forecast.includes("mist")) return (tempImg.src = "/src/img/mist.png");
+  if (forecast.includes("mist")) {
+    tempImg.alt = data.tempDescription;
+    return (tempImg.src = mist);
+  }
 
-  if (forecast.includes("rain")) return (tempImg.src = "/src/img/rain.png");
+  if (forecast.includes("rain")) {
+    tempImg.alt = data.tempDescription;
+    return (tempImg.src = rain);
+  }
 
-  if (forecast.includes("snow")) return (tempImg.src = "/src/img/snow.png");
+  if (forecast.includes("snow")) {
+    tempImg.alt = data.tempDescription;
+    return (tempImg.src = snow);
+  }
 };
 
 const renderTemp = function (data) {
-  return (temp.textContent = `${data.temp}\u00B0`);
+  return (temp.textContent = `${data.temp}\u00B0C`);
 };
 
 const renderTempDetail = function (data) {
@@ -81,14 +128,12 @@ const renderWindSpeed = function (data) {
 const renderWeather = async function () {
   try {
     const data = await weatherData();
-
+    console.log(tempImg);
     renderWeatherImg(data);
     renderTemp(data);
     renderTempDetail(data);
     renderHumidity(data);
     renderWindSpeed(data);
-
-    console.log(data);
   } catch (err) {
     console.error(err);
   }
