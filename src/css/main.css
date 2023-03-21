@@ -34,14 +34,13 @@ body {
   background-color: var(--container-color);
   border-radius: 15px;
   overflow: hidden;
-  transition: 250ms ease-in-out;
+  transition: 5s;
 }
 
 .search-container {
   display: flex;
   width: 100%;
   height: min-content;
-
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -78,7 +77,7 @@ body {
 
 .location-input:focus {
   outline: none;
-  transition: 250ms ease-in-out;
+  transition: 0.2s ease;
   box-shadow: 0 6px 1px rgba(101, 101, 101, 0.07),
     0 0px 10px rgba(21, 21, 21, 0.2);
 }
@@ -90,7 +89,6 @@ body {
   width: 45px;
   height: 45px;
   border-radius: 50px;
-  transition: 0.5s ease;
 }
 
 .search-icon {
@@ -117,18 +115,20 @@ body {
   margin-bottom: 50px;
 }
 
-.img-404 {
-  width: 80%;
-  height: auto;
-  margin-bottom: 60px;
-}
-
 .invalid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 40px;
   margin-bottom: 30px;
+  opacity: 0;
+  scale: 0;
+}
+
+.img-404 {
+  width: 80%;
+  height: auto;
+  margin-bottom: 60px;
 }
 
 .invalid-message {
@@ -204,4 +204,16 @@ body {
 /* HIDDEN */
 .hidden {
   display: none;
+}
+
+.fadeIn {
+  animation: 0.5s fadeIn forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeIn {
+  to {
+    scale: 1;
+    opacity: 1;
+  }
 }

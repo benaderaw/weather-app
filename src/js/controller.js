@@ -5,6 +5,10 @@ import mist from "url:../img/mist.png";
 import rain from "url:../img/rain.png";
 import snow from "url:../img/snow.png";
 
+const weatherImgs = document.querySelector(".weather-imgs");
+const detailContainer = document.querySelector(".detail-container");
+const invalid = document.querySelector(".invalid");
+
 const tempImg = document.querySelector(".temp-img");
 const temp = document.querySelector(".temp");
 const tempDescription = document.querySelector(".temp-description");
@@ -13,7 +17,6 @@ const wind = document.querySelector(".wind-speed");
 
 const input = document.querySelector(".location-form");
 const locationValue = document.querySelector(".location-input");
-const searchBtn = document.querySelector(".search-btn");
 
 const state = {
   weather: {},
@@ -35,7 +38,9 @@ const locationData = async function () {
       `https://restcountries.com/v3.1/name/${country || "usa"}`
     );
 
-    if (!res.ok) throw new Error(`🛑🛑🛑`);
+    render404(res);
+    // if (!res.ok) throw new Error(`🛑🛑🛑`);
+
     const resData = await res.json();
     const data = resData[0].latlng;
 
@@ -78,6 +83,18 @@ const weatherData = async function () {
 //////////////////////////////////////////
 
 // RENDER WEATHER
+
+const render404 = function (res) {
+  if (!res.ok) {
+    // hide display
+    weatherImgs.classList.add("hidden");
+    detailContainer.classList.add("hidden");
+
+    // show 404 message
+    invalid.classList.remove("hidden");
+    invalid.classList.add("fadeIn");
+  }
+};
 
 const renderWeatherImg = function (data) {
   const forecast = data.forecast.toLowerCase().split(" ");
@@ -147,6 +164,16 @@ const renderWeather = async function () {
 
 renderWeather();
 
+//
+const displayWeather = function () {
+  // show display
+  weatherImgs.classList.remove("hidden");
+  detailContainer.classList.remove("hidden");
+
+  // hide 404 message
+  invalid.classList.add("hidden");
+};
+
 input.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -156,6 +183,9 @@ input.addEventListener("submit", function (e) {
 
   // render
   renderWeather();
+
+  // display weather
+  displayWeather();
 
   // stop input focus
   locationValue.blur();
