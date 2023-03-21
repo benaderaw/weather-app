@@ -166,7 +166,7 @@ body {
 
 /* DETAIL STYLE */
 .detail-container {
-  padding: 0px 30px 0px 30px;
+  padding: 0px 15px 0px 15px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
@@ -174,9 +174,11 @@ body {
 
 .water-icon,
 .wind-icon {
+  display: flex;
   color: var(--main-text);
   font-size: 35px;
   font-weight: 700;
+  align-items: center;
   margin-right: 12px;
 }
 
