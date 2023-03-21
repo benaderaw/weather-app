@@ -11,19 +11,24 @@ const tempDescription = document.querySelector(".temp-description");
 const humidity = document.querySelector(".humidity-percent");
 const wind = document.querySelector(".wind-speed");
 
+const input = document.querySelector(".location-form");
+const locationValue = document.querySelector(".location-input");
+const searchBtn = document.querySelector(".search-btn");
+
 const state = {
   weather: {},
 };
 
 let lat;
 let lng;
-const country = "";
+let country = "";
 
 navigator.geolocation.getCurrentPosition(function success(pos) {
   lat = pos.coords;
   lng = pos.coords;
 });
 
+// load location data
 const locationData = async function () {
   try {
     const res = await fetch(
@@ -41,6 +46,7 @@ const locationData = async function () {
   }
 };
 
+// load weather data based ob location data
 const weatherData = async function () {
   try {
     await locationData();
@@ -122,7 +128,7 @@ const renderHumidity = function (data) {
 };
 
 const renderWindSpeed = function (data) {
-  return (wind.textContent = `${data.windSpeed}km/h`);
+  return (wind.textContent = `${data.windSpeed} m/h`);
 };
 
 const renderWeather = async function () {
@@ -140,3 +146,21 @@ const renderWeather = async function () {
 };
 
 renderWeather();
+
+input.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (locationValue.value === "") return;
+
+  country = locationValue.value;
+
+  // render
+  renderWeather();
+
+  // stop input focus
+  locationValue.blur();
+
+  // reset
+  locationValue.setAttribute("placeholder", locationValue.value.toUpperCase());
+  locationValue.value = "";
+});
