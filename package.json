@@ -1,0 +1,14 @@
+{
+  "name": "weatherly",
+  "version": "1.0.0",
+  "description": "Weather Application",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Biniam Aderaw",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.8.3"
+  }
+}
