@@ -84,11 +84,20 @@ const weatherData = async function () {
 
 // RENDER WEATHER
 
+const fff = function (dom) {
+  dom.style.opacity = 0;
+  dom.style.scale = 0;
+};
+
 const render404 = function (res) {
   if (!res.ok) {
     // hide display
     weatherImgs.classList.add("hidden");
     detailContainer.classList.add("hidden");
+
+    //
+    fff(weatherImgs);
+    fff(detailContainer);
 
     // show 404 message
     invalid.classList.remove("hidden");
@@ -151,7 +160,6 @@ const renderWindSpeed = function (data) {
 const renderWeather = async function () {
   try {
     const data = await weatherData();
-    console.log(tempImg);
     renderWeatherImg(data);
     renderTemp(data);
     renderTempDetail(data);
@@ -164,9 +172,16 @@ const renderWeather = async function () {
 
 renderWeather();
 
+const eee = function (dom) {
+  dom.classList.add("fadeIn");
+  dom.classList.add("fadeIn");
+};
+
 //
 const displayWeather = function () {
   // show display
+  eee(weatherImgs);
+  eee(detailContainer);
   weatherImgs.classList.remove("hidden");
   detailContainer.classList.remove("hidden");
 
@@ -186,6 +201,8 @@ input.addEventListener("submit", function (e) {
 
   // display weather
   displayWeather();
+
+  //
 
   // stop input focus
   locationValue.blur();
