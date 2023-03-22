@@ -37,7 +37,9 @@ navigator.geolocation.getCurrentPosition(function success(pos) {
 const locationData = async function () {
   try {
     const res = await fetch(
-      `https://restcountries.com/v3.1/name/${country || "usa"}`
+      `https://restcountries.com/v3.1/name/${
+        country || "united states"
+      }?fullText=true`
     );
 
     render404(res);
@@ -46,7 +48,7 @@ const locationData = async function () {
     const data = resData[0].latlng;
 
     renderFlag(resData);
-    console.log(resData[0].flags.png);
+    console.log(resData);
 
     lat = data[0];
     lng = data[1];
