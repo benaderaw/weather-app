@@ -1,236 +1,69 @@
-import flag404 from "url:../img/flag404.png";
-import clear from "url:../img/clear.png";
-import clouds from "url:../img/cloud.png";
-import mist from "url:../img/mist.png";
-import rain from "url:../img/rain.png";
-import snow from "url:../img/snow.png";
+import * as model from "./model.js";
+import view from "./views/view.js";
+import mainView from "./views/mainView.js";
 
-const container = document.querySelector(".container");
-const weatherImgs = document.querySelector(".weather-imgs");
-const detailContainer = document.querySelector(".detail-container");
-const invalid = document.querySelector(".invalid");
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
-const flag = document.querySelector(".location-flag");
-const tempImg = document.querySelector(".temp-img");
-const temp = document.querySelector(".temp");
-const tempDescription = document.querySelector(".temp-description");
-const humidity = document.querySelector(".humidity-percent");
-const wind = document.querySelector(".wind-speed");
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
 
-const input = document.querySelector(".location-form");
-const locationValue = document.querySelector(".location-input");
-
-const state = {
-  weather: {},
-};
-
-let lat;
-let lng;
-let country = "";
-
-navigator.geolocation.getCurrentPosition(function success(pos) {
-  lat = pos.coords;
-  lng = pos.coords;
-});
-
-// load location data
-const locationData = async function () {
+const controlFlag = async function () {
   try {
-    const res = await fetch(
-      `https://restcountries.com/v3.1/name/${
-        country || "united states"
-      }?fullText=true`
-    );
+    // GET VALUE OF INPUT
+    const query = view.getQuery();
+    if (query === "") return;
 
-    render404(res);
+    // CATCH AND RENDER INVALID LOCATION MESSAGE
+    const locationRes = await model.locationData(query);
+    if (!locationRes.ok) {
+      view.render404();
+      throw new Error(`${locationRes.status}: Bad country api URL`);
+    }
 
-    const resData = await res.json();
-    const data = resData[0].latlng;
+    // RENDER FLAG
+    view.renderFlag(model.state.flag);
 
-    renderFlag(resData);
-    console.log(resData);
+    // CATCH BAD WEATHER API URL
+    const weatherRes = await model.weatherData();
+    if (!weatherRes.ok)
+      throw new Error(`${locationRes.status}: Bad weather api URL`);
 
-    lat = data[0];
-    lng = data[1];
-  } catch (err) {
-    console.error(err.message);
-  }
-};
+    // RENDER IMAGE
+    view.displayWeather();
+    view.renderWeatherImg(model.state.weather);
 
-// load weather data based ob location data
-const weatherData = async function () {
-  try {
-    await locationData();
+    // RENDER TEMP
+    view.renderTemp(model.state.weather);
 
-    const res = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&exclude=hourly,daily&appid=af6d9ef7cd7b37ca607d6e46c77bdc2c`
-    );
+    // RENDER TEMP DESCRIPTION
+    view.renderTempDescription(model.state.weather);
 
-    if (!res.ok) throw new Error(`${res.status}: ${res.statusText} 🛑`);
+    // RENDER HUMIDITY
+    view.renderHumidity(model.state.weather);
 
-    const resData = await res.json();
-
-    const { ...data } = resData.current;
-
-    return (state.weather = {
-      id: data.weather[0].id,
-      forecast: data.weather[0].main,
-      temp: data.temp,
-      tempDescription: data.weather[0].description,
-      humidity: data.humidity,
-      windSpeed: data.wind_speed,
-    });
-  } catch (err) {
-    throw err;
-  }
-};
-
-//////////////////////////////////////////
-//////////////////////////////////////////
-
-// RENDER WEATHER
-const renderFlag = function (res) {
-  flag.src = res[0].flags.png;
-};
-
-const displayToZero = function (dom) {
-  dom.style.opacity = 0;
-  dom.style.scale = 0;
-};
-
-const render404 = function (res) {
-  if (!res.ok) {
-    // remove fade in from 404
-    weatherImgs.classList.remove("fadeIn");
-    detailContainer.classList.remove("fadeIn");
-
-    // hide display
-    weatherImgs.classList.add("hidden");
-    detailContainer.classList.add("hidden");
-
-    // set opacity and scale too 0
-    displayToZero(weatherImgs);
-    displayToZero(detailContainer);
-
-    // show 404 message
-    invalid.classList.remove("hidden");
-    container.style.height = "500px";
-    invalid.classList.add("fadeIn");
-
-    //
-    flag.src = flag404;
-  }
-};
-
-const renderWeatherImg = function (data) {
-  const forecast = data.forecast.toLowerCase().split(" ");
-
-  if (forecast.includes("clear")) {
-    tempImg.alt = data.tempDescription;
-    return (tempImg.src = clear);
-  }
-
-  if (forecast.includes("clouds")) {
-    tempImg.alt = data.tempDescription;
-    return (tempImg.src = clouds);
-  }
-
-  if (forecast.includes("mist")) {
-    tempImg.alt = data.tempDescription;
-    return (tempImg.src = mist);
-  }
-
-  if (forecast.includes("rain")) {
-    tempImg.alt = data.tempDescription;
-    return (tempImg.src = rain);
-  }
-
-  if (forecast.includes("snow")) {
-    tempImg.alt = data.tempDescription;
-    return (tempImg.src = snow);
-  }
-};
-
-const renderTemp = function (data) {
-  return (temp.textContent = `${data.temp}\u00B0F`);
-};
-
-const renderTempDetail = function (data) {
-  const tempDetailToUpper = data.tempDescription
-    .split(" ")
-    .map((el) => {
-      return el[0].toUpperCase() + el.slice(1);
-    })
-    .join(" ");
-
-  return (tempDescription.textContent = tempDetailToUpper);
-};
-
-const renderHumidity = function (data) {
-  return (humidity.textContent = `${data.humidity}%`);
-};
-
-const renderWindSpeed = function (data) {
-  return (wind.textContent = `${data.windSpeed} m/h`);
-};
-
-const renderWeather = async function () {
-  try {
-    const data = await weatherData();
-    renderWeatherImg(data);
-    renderTemp(data);
-    renderTempDetail(data);
-    renderHumidity(data);
-    renderWindSpeed(data);
+    // RENDER WIND SPEED
+    view.renderWindSpeed(model.state.weather);
   } catch (err) {
     console.error(err);
   }
 };
 
-const fadeIn = function (dom) {
-  dom.classList.add("fadeIn");
-  dom.classList.add("fadeIn");
+// const controlWeather = async function () {
+//   try {
+//     await model.weatherData();
+//     console.log(model.state);
+//     view.renderWeatherImg(model.state.weather);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+
+// controlWeather();
+
+const init = function () {
+  view.searchHandler(controlFlag);
+  //view.searchHandler(controlWeather);
 };
 
-//
-const displayWeather = function () {
-  // show display
-  weatherImgs.classList.remove("hidden");
-  detailContainer.classList.remove("hidden");
-
-  //
-  container.style.height = "610px";
-
-  // add the fade in animation
-  fadeIn(weatherImgs);
-  fadeIn(detailContainer);
-
-  // remove fade in from 404
-  invalid.classList.remove("fadeIn");
-
-  // hide 404
-  invalid.classList.add("hidden");
-};
-
-input.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  if (locationValue.value === "") return;
-
-  country = locationValue.value;
-
-  // render
-  renderWeather();
-
-  // display weather
-  displayWeather();
-
-  //
-
-  // stop input focus
-  locationValue.blur();
-
-  // reset
-  locationValue.setAttribute("placeholder", locationValue.value.toUpperCase());
-  locationValue.value = "";
-});
+init();
