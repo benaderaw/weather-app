@@ -29,7 +29,7 @@ body {
 .container {
   display: relative;
   width: 410px;
-  height: min-content;
+  height: 110;
   padding: 25px;
   background-color: var(--container-color);
   border-radius: 15px;
@@ -40,7 +40,7 @@ body {
 .location-flag {
   width: 15%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .search-container {

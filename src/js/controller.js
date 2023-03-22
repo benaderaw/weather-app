@@ -1,4 +1,3 @@
-import errorImg from "url:../img/404.png";
 import flag404 from "url:../img/flag404.png";
 import clear from "url:../img/clear.png";
 import clouds from "url:../img/cloud.png";
@@ -6,6 +5,7 @@ import mist from "url:../img/mist.png";
 import rain from "url:../img/rain.png";
 import snow from "url:../img/snow.png";
 
+const container = document.querySelector(".container");
 const weatherImgs = document.querySelector(".weather-imgs");
 const detailContainer = document.querySelector(".detail-container");
 const invalid = document.querySelector(".invalid");
@@ -100,13 +100,13 @@ const displayToZero = function (dom) {
 
 const render404 = function (res) {
   if (!res.ok) {
-    // hide display
-    weatherImgs.classList.add("hidden");
-    detailContainer.classList.add("hidden");
-
     // remove fade in from 404
     weatherImgs.classList.remove("fadeIn");
     detailContainer.classList.remove("fadeIn");
+
+    // hide display
+    weatherImgs.classList.add("hidden");
+    detailContainer.classList.add("hidden");
 
     // set opacity and scale too 0
     displayToZero(weatherImgs);
@@ -114,6 +114,7 @@ const render404 = function (res) {
 
     // show 404 message
     invalid.classList.remove("hidden");
+    container.style.height = "500px";
     invalid.classList.add("fadeIn");
 
     //
@@ -151,7 +152,7 @@ const renderWeatherImg = function (data) {
 };
 
 const renderTemp = function (data) {
-  return (temp.textContent = `${data.temp}\u00B0C`);
+  return (temp.textContent = `${data.temp}\u00B0F`);
 };
 
 const renderTempDetail = function (data) {
@@ -186,8 +187,6 @@ const renderWeather = async function () {
   }
 };
 
-renderWeather();
-
 const fadeIn = function (dom) {
   dom.classList.add("fadeIn");
   dom.classList.add("fadeIn");
@@ -198,6 +197,9 @@ const displayWeather = function () {
   // show display
   weatherImgs.classList.remove("hidden");
   detailContainer.classList.remove("hidden");
+
+  //
+  container.style.height = "610px";
 
   // add the fade in animation
   fadeIn(weatherImgs);
