@@ -1,4 +1,5 @@
-import rain from "url:../img/404.png";
+import errorImg from "url:../img/404.png";
+import flag404 from "url:../img/flag404.png";
 import clear from "url:../img/clear.png";
 import clouds from "url:../img/cloud.png";
 import mist from "url:../img/mist.png";
@@ -9,6 +10,7 @@ const weatherImgs = document.querySelector(".weather-imgs");
 const detailContainer = document.querySelector(".detail-container");
 const invalid = document.querySelector(".invalid");
 
+const flag = document.querySelector(".location-flag");
 const tempImg = document.querySelector(".temp-img");
 const temp = document.querySelector(".temp");
 const tempDescription = document.querySelector(".temp-description");
@@ -39,10 +41,12 @@ const locationData = async function () {
     );
 
     render404(res);
-    // if (!res.ok) throw new Error(`🛑🛑🛑`);
 
     const resData = await res.json();
     const data = resData[0].latlng;
+
+    renderFlag(resData);
+    console.log(resData[0].flags.png);
 
     lat = data[0];
     lng = data[1];
@@ -83,8 +87,11 @@ const weatherData = async function () {
 //////////////////////////////////////////
 
 // RENDER WEATHER
+const renderFlag = function (res) {
+  flag.src = res[0].flags.png;
+};
 
-const fff = function (dom) {
+const displayToZero = function (dom) {
   dom.style.opacity = 0;
   dom.style.scale = 0;
 };
@@ -95,13 +102,20 @@ const render404 = function (res) {
     weatherImgs.classList.add("hidden");
     detailContainer.classList.add("hidden");
 
-    //
-    fff(weatherImgs);
-    fff(detailContainer);
+    // remove fade in from 404
+    weatherImgs.classList.remove("fadeIn");
+    detailContainer.classList.remove("fadeIn");
+
+    // set opacity and scale too 0
+    displayToZero(weatherImgs);
+    displayToZero(detailContainer);
 
     // show 404 message
     invalid.classList.remove("hidden");
     invalid.classList.add("fadeIn");
+
+    //
+    flag.src = flag404;
   }
 };
 
@@ -172,7 +186,7 @@ const renderWeather = async function () {
 
 renderWeather();
 
-const eee = function (dom) {
+const fadeIn = function (dom) {
   dom.classList.add("fadeIn");
   dom.classList.add("fadeIn");
 };
@@ -180,12 +194,17 @@ const eee = function (dom) {
 //
 const displayWeather = function () {
   // show display
-  eee(weatherImgs);
-  eee(detailContainer);
   weatherImgs.classList.remove("hidden");
   detailContainer.classList.remove("hidden");
 
-  // hide 404 message
+  // add the fade in animation
+  fadeIn(weatherImgs);
+  fadeIn(detailContainer);
+
+  // remove fade in from 404
+  invalid.classList.remove("fadeIn");
+
+  // hide 404
   invalid.classList.add("hidden");
 };
 
