@@ -17,6 +17,7 @@ class View extends mainView {
     //this.locationValue.value.blur();
     this.locationValue.setAttribute("placeholder", query.toUpperCase());
     this.locationValue.value = "";
+    this.locationValue.blur();
 
     return query;
   }
@@ -24,6 +25,22 @@ class View extends mainView {
   // RENDER FLAG
   renderFlag(png) {
     this.flag.src = png;
+  }
+
+  //
+  weatherHideOnLoad() {
+    this.weatherImgs.style.opacity = 0;
+    this.weatherImgs.style.scale = 0;
+
+    this.detailContainer.style.opacity = 0;
+    this.detailContainer.style.scale = 0;
+  }
+
+  // ADD FADE-IN CLASS
+  addFadeInClass() {
+    console.log(6666);
+    this.weatherImgs.classList.add("fadeIn");
+    this.detailContainer.classList.add("fadeIn");
   }
 
   // RENDER IMAGE
@@ -85,6 +102,8 @@ class View extends mainView {
 
   // RENDER BAD URL
   render404() {
+    //
+    this.weatherHideOnLoad();
     // remove fade in from 404
     this.weatherImgs.classList.remove("fadeIn");
     this.detailContainer.classList.remove("fadeIn");
@@ -103,7 +122,11 @@ class View extends mainView {
   }
 
   // REMOVE HIDDEN FROM WEATHER
+  // RENDER WEATHER AFTER 404
   displayWeather() {
+    //
+    this.addFadeInClass();
+
     // show display
     this.weatherImgs.classList.remove("hidden");
     this.detailContainer.classList.remove("hidden");

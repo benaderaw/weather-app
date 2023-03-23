@@ -30,6 +30,7 @@ const controlFlag = async function () {
       throw new Error(`${locationRes.status}: Bad weather api URL`);
 
     // RENDER IMAGE
+    view.weatherHideOnLoad();
     view.displayWeather();
     view.renderWeatherImg(model.state.weather);
 
