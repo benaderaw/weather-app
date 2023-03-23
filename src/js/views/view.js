@@ -114,7 +114,7 @@ class View extends mainView {
 
     // show 404 message
     this.invalid.classList.remove("hidden");
-    this.container.style.height = "500px";
+    this.container.style.height = "650px";
     this.invalid.classList.add("fadeIn");
 
     //
@@ -132,7 +132,7 @@ class View extends mainView {
     this.detailContainer.classList.remove("hidden");
 
     //
-    this.container.style.height = "610px";
+    this.container.style.height = "650px";
 
     // remove fade in from 404
     this.invalid.classList.remove("fadeIn");

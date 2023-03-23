@@ -29,7 +29,7 @@ body {
 .container {
   display: relative;
   width: 410px;
-  height: min-content;
+  height: 115px;
   padding: 25px;
   background-color: var(--container-color);
   border-radius: 15px;
