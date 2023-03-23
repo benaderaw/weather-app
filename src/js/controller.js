@@ -21,13 +21,13 @@ const controlFlag = async function () {
       throw new Error(`${locationRes.status}: Bad country api URL`);
     }
 
-    // RENDER FLAG
-    view.renderFlag(model.state.flag);
-
     // CATCH BAD WEATHER API URL
     const weatherRes = await model.weatherData();
     if (!weatherRes.ok)
       throw new Error(`${locationRes.status}: Bad weather api URL`);
+
+    // RENDER FLAG
+    view.renderFlag(model.state.flag);
 
     // RENDER IMAGE
     view.weatherHideOnLoad();
