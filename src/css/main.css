@@ -93,6 +93,7 @@ body {
   width: 45px;
   height: 45px;
   border-radius: 50px;
+  transition: 0.3s;
 }
 
 .search-icon {
@@ -179,8 +180,7 @@ body {
 }
 
 .water-icon,
-.wind-icon,
-.map-icon {
+.wind-icon {
   display: flex;
   color: var(--main-text);
   font-size: 35px;
@@ -189,9 +189,30 @@ body {
   margin-right: 12px;
 }
 
-.map-icon {
-  font-size: 30px;
+.map {
+  display: flex;
   justify-content: center;
+}
+
+.map-btn {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.map-btn:hover {
+  background-color: var(--btn-hover);
+  color: var(--icon-hover);
+}
+
+.map-icon {
+  margin: 0;
+  font-size: 30px;
 }
 
 .humidity-detail,
