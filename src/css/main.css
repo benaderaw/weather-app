@@ -196,6 +196,7 @@ body {
 
 .map-btn {
   display: flex;
+  color: var(--search-icon-text-color);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -229,6 +230,26 @@ body {
 .humidity-percent,
 .wind-speed {
   margin-bottom: 3px;
+}
+
+.map-container {
+  display: flex;
+  width: 510px;
+  height: 650px;
+  padding: 5px 5px 5px 0px;
+  background-color: var(--container-color);
+  border-radius: 15px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+}
+
+.map-display {
+  width: 510px;
+  height: 640px;
+  border-radius: 15px;
+  background-color: red;
 }
 
 /* HIDDEN */
