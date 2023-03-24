@@ -13,4 +13,7 @@ export default class MainView {
 
   input = document.querySelector(".location-form");
   locationValue = document.querySelector(".location-input");
+  map = document.querySelector(".map");
+  mapContainer = document.querySelector(".map-container");
+  mapBtn = document.querySelector(".map-btn");
 }

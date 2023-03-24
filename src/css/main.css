@@ -37,6 +37,11 @@ body {
   transition: 0.2s ease-in-out;
 }
 
+/* toggled class */
+.borderToZero {
+  border-radius: 15px 0px 0px 15px;
+}
+
 .location-flag {
   width: 15%;
   height: auto;
@@ -211,6 +216,12 @@ body {
   color: var(--icon-hover);
 }
 
+/* // toggled */
+.map-btn-toggled {
+  background-color: var(--btn-hover);
+  color: var(--icon-hover);
+}
+
 .map-icon {
   margin: 0;
   font-size: 30px;
@@ -236,9 +247,9 @@ body {
   display: flex;
   width: 510px;
   height: 650px;
-  padding: 5px 5px 5px 0px;
+  padding: 10px 10px 10px 0px;
   background-color: var(--container-color);
-  border-radius: 15px;
+  border-radius: 0px 15px 15px 0px;
   overflow: hidden;
   justify-content: center;
   align-items: center;
@@ -247,9 +258,10 @@ body {
 
 .map-display {
   width: 510px;
-  height: 640px;
-  border-radius: 15px;
-  background-color: red;
+}
+
+#map {
+  height: 630px;
 }
 
 /* HIDDEN */

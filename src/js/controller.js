@@ -1,9 +1,10 @@
 import * as model from "./model.js";
 import view from "./views/view.js";
-import mainView from "./views/mainView.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+import mapView from "./views/mapView.js";
+import { async } from "regenerator-runtime";
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -45,26 +46,22 @@ const controlFlag = async function () {
 
     // RENDER WIND SPEED
     view.renderWindSpeed(model.state.weather);
+
+    // Display Map
+    model.mapData();
   } catch (err) {
     console.error(err);
   }
 };
 
-// const controlWeather = async function () {
-//   try {
-//     await model.weatherData();
-//     console.log(model.state);
-//     view.renderWeatherImg(model.state.weather);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
-// controlWeather();
+const controlMap = async function () {
+  mapView.displayMapContainer();
+  model.mapData();
+};
 
 const init = function () {
   view.searchHandler(controlFlag);
-  //view.searchHandler(controlWeather);
+  mapView.displayBtnHandler(controlMap);
 };
 
 init();

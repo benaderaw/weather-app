@@ -38,7 +38,6 @@ class View extends mainView {
 
   // ADD FADE-IN CLASS
   addFadeInClass() {
-    console.log(6666);
     this.weatherImgs.classList.add("fadeIn");
     this.detailContainer.classList.add("fadeIn");
   }
@@ -114,11 +113,21 @@ class View extends mainView {
 
     // show 404 message
     this.invalid.classList.remove("hidden");
-    this.container.style.height = "650px";
+    this.container.style.height = "500px";
     this.invalid.classList.add("fadeIn");
 
     //
     this.flag.src = flag404;
+
+    // remove map button
+    this.map.classList.add("hidden");
+
+    // remove map display
+    this.mapContainer.classList.add("hidden");
+    this.container.classList.remove("borderToZero");
+
+    // remove btn icon color
+    this.mapBtn.classList.remove("map-btn-toggled");
   }
 
   // REMOVE HIDDEN FROM WEATHER
@@ -139,6 +148,9 @@ class View extends mainView {
 
     // hide 404
     this.invalid.classList.add("hidden");
+
+    // add map button
+    this.map.classList.remove("hidden");
   }
 
   // EVENT HANDLER (SUBMIT)
