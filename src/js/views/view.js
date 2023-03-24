@@ -6,7 +6,7 @@ import rain from "url:../../img/rain.png";
 import snow from "url:../../img/snow.png";
 
 import mainView from "./mainView";
-
+import { DEGREE_SYMBOL } from "../config";
 class View extends mainView {
   // GET INPUT VALUE
   getQuery() {
@@ -43,38 +43,27 @@ class View extends mainView {
   }
 
   // RENDER IMAGE
+
   renderWeatherImg(data) {
     const forecast = data.forecast.toLowerCase().split(" ");
+    const weatherConditions = ["clear", "clouds", "rain", "mist", "snow"];
+    const weatherConditionImgs = [clear, clouds, rain, mist, snow];
 
-    if (forecast.includes("clear")) {
-      this.tempImg.alt = data.tempDescription;
-      return (this.tempImg.src = clear);
-    }
+    let currCondition;
 
-    if (forecast.includes("clouds")) {
-      this.tempImg.alt = data.tempDescription;
-      return (this.tempImg.src = clouds);
-    }
+    weatherConditions.filter((el, i) => {
+      if (forecast.includes(el)) {
+        currCondition = weatherConditionImgs[i];
+      }
+    });
 
-    if (forecast.includes("mist")) {
-      this.tempImg.alt = data.tempDescription;
-      return (this.tempImg.src = mist);
-    }
-
-    if (forecast.includes("rain")) {
-      this.tempImg.alt = data.tempDescription;
-      return (this.tempImg.src = rain);
-    }
-
-    if (forecast.includes("snow")) {
-      this.tempImg.alt = data.tempDescription;
-      return (this.tempImg.src = snow);
-    }
+    this.tempImg.alt = data.tempDescription;
+    this.tempImg.src = currCondition;
   }
 
   // RENDER TEMP
   renderTemp(data) {
-    return (this.temp.textContent = `${data.temp}\u00B0F`);
+    return (this.temp.textContent = `${data.temp}${DEGREE_SYMBOL}F`);
   }
 
   // RENDER TEMP DESCRIPTION

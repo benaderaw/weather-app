@@ -1,4 +1,5 @@
 import { async } from "regenerator-runtime";
+import { API_KEY, API_URL } from "./config";
 
 export const state = {
   weather: {},
@@ -8,21 +9,9 @@ let lat;
 let lng;
 export let map;
 
-// navigator.geolocation.getCurrentPosition(function success(pos) {
-//   lat = pos.coords;
-//   lng = pos.coords;
-// });
-
-// load location data
-
-//
-
-// load latitude and longitude
 export const locationData = async function (country) {
   try {
-    const res = await fetch(
-      `https://restcountries.com/v3.1/name/${country}?fullText=true`
-    );
+    const res = await fetch(`${API_URL}${country}?fullText=true`);
 
     if (!res.ok) return res;
 
@@ -45,7 +34,7 @@ export const locationData = async function (country) {
 export const weatherData = async function () {
   try {
     const res = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&exclude=hourly,daily&appid=af6d9ef7cd7b37ca607d6e46c77bdc2c`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&exclude=hourly,daily&appid=${API_KEY}`
     );
 
     if (!res.ok) return res;

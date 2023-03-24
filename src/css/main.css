@@ -45,6 +45,7 @@ body {
 .location-flag {
   width: 15%;
   height: auto;
+  box-shadow: 0 0 5px 1.5px #ebebeb;
   border-radius: 4px;
 }
 
@@ -258,6 +259,7 @@ body {
 
 .map-display {
   width: 510px;
+  border-radius: 15px;
 }
 
 #map {
