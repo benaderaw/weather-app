@@ -26,71 +26,73 @@
   </head>
 
   <body>
-    <div class="container">
-      <!-- SEARCH CONTAINER -->
-      <div class="search-container">
-        <form type="submit" class="location-form">
-          <img class="location-flag" src="src/img/flag404.png" alt="usa flag" >
-          <input
-            type="text"
-            placeholder="enter country name"
-            class="location-input"
-          />
-        <button class="btn search-btn">
-          <i class="material-symbols-outlined search-icon"> search </i>
-        </button>
-        </form>
-      </div>
-
-      <!-- DISPLAY CONTAINER -->
-      <div class="display-container">
-        <div class="invalid hidden">
-          <img
-            src="src/img/404.png"
-            alt="invalid-location-img"
-            class="img-404"
-          />
-          <p class="message invalid-message">Oops, invalid country :/</p>
+    <div class="main-container">
+      <div class="container">
+        <!-- SEARCH CONTAINER -->
+        <div class="search-container">
+          <form type="submit" class="location-form">
+            <img class="location-flag" src="src/img/flag404.png" alt="usa flag" >
+            <input
+              type="text"
+              placeholder="enter country name"
+              class="location-input"
+            />
+          <button class="btn search-btn">
+            <i class="material-symbols-outlined search-icon"> search </i>
+          </button>
+          </form>
         </div>
 
-        <div class="weather-imgs">
-          <img class="temp-img" src="src/img/cloud.png" alt="cloudy"  />
-          <p class="temp">30&#176</p>
-          <p class="message temp-description">Cloudy Sky</p>
-        </div>
-      </div>
-
-      <!-- DETAIL CONTAINER -->
-      <div class="detail-container">
-        <div class="detail-box">
-          <div class="humidity-detail">
-            <i class="material-symbols-outlined water-icon">water</i>
-            <div class="humidity-container">
-              <p class="humidity-percent">91%</p>
-              <p class="humidity">Humidity</p>
-            </div>
+        <!-- DISPLAY CONTAINER -->
+        <div class="display-container">
+          <div class="invalid hidden">
+            <img
+              src="src/img/404.png"
+              alt="invalid-location-img"
+              class="img-404"
+            />
+            <p class="message invalid-message">Oops, invalid country :/</p>
           </div>
 
-          <div class="wind-detail">
-            <i class="material-symbols-outlined wind-icon">air</i>
-            <div class="wind-container">
-              <p class="wind-speed">1m/h</p>
-              <p class="wind">Wind Speed</p>
+          <div class="weather-imgs">
+            <img class="temp-img" src="src/img/cloud.png" alt="cloudy"  />
+            <p class="temp">30&#176</p>
+            <p class="message temp-description">Cloudy Sky</p>
+          </div>
+        </div>
+
+        <!-- DETAIL CONTAINER -->
+        <div class="detail-container">
+          <div class="detail-box">
+            <div class="humidity-detail">
+              <i class="material-symbols-outlined water-icon">water</i>
+              <div class="humidity-container">
+                <p class="humidity-percent">91%</p>
+                <p class="humidity">Humidity</p>
+              </div>
+            </div>
+
+            <div class="wind-detail">
+              <i class="material-symbols-outlined wind-icon">air</i>
+              <div class="wind-container">
+                <p class="wind-speed">1m/h</p>
+                <p class="wind">Wind Speed</p>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="map">
+          <button class="btn map-btn">
+            <i class="material-symbols-outlined map-icon">map</i>
+          </button>
+        </div>
       </div>
 
-      <div class="map">
-        <button class="btn map-btn">
-          <i class="material-symbols-outlined map-icon">map</i>
-        </button>
-      </div>
-    </div>
-
-    <div class="map-container hidden">
-      <div class="map-display" id="map">
-        <p>MAP GOES HERE</p>
+      <div class="map-container hidden">
+        <div class="map-display" id="map">
+          <p>MAP GOES HERE</p>
+        </div>
       </div>
     </div>
   </body>

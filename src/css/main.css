@@ -1,12 +1,12 @@
 :root {
   --main-text: rgb(26, 26, 26);
-  --background-color: rgb(25, 43, 69);
+  --background-color: rgb(211, 60, 60);
   --container-color: rgb(255, 255, 255);
   --icon-color: rgb(105, 105, 105);
   --search-icon-text-color: rgb(105, 105, 105);
   --icon-hover: rgb(245, 222, 179);
   --btn-background-color: rgb(205, 225, 253);
-  --btn-hover: rgb(33, 55, 88);
+  --btn-hover: rgb(255, 94, 94);
 }
 
 * {
@@ -24,6 +24,11 @@ body {
   background-color: var(--background-color);
   align-items: center;
   justify-content: center;
+}
+
+.main-container {
+  display: flex;
+  border-radius: 15px;
 }
 
 .container {
