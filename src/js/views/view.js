@@ -12,7 +12,7 @@ class View extends mainView {
   getQuery() {
     if (this.locationValue.value === "") return "";
 
-    const query = this.locationValue.value;
+    const query = this.locationValue.value.trim();
 
     //this.locationValue.value.blur();
     this.locationValue.setAttribute("placeholder", query.toUpperCase());
