@@ -1,5 +1,6 @@
 import { async } from "regenerator-runtime";
 import { API_KEY, API_URL } from "./config";
+import { AJAX } from "./helper";
 
 export const state = {
   weather: {},
@@ -11,11 +12,11 @@ export let map;
 
 export const locationData = async function (country) {
   try {
-    const res = await fetch(`${API_URL}${country}?fullText=true`);
-
-    if (!res.ok) return res;
+    const res = await AJAX(`${API_URL}${country}?fullText=true`);
 
     const resData = await res.json();
+    if (!res.ok) return res;
+
     state.flag = resData[0].flags.png;
     const data = resData[0].latlng;
 
@@ -24,6 +25,7 @@ export const locationData = async function (country) {
 
     state.weather.lat = lat;
     state.weather.lng = lng;
+
     return res;
   } catch (err) {
     throw err;
@@ -33,13 +35,13 @@ export const locationData = async function (country) {
 // load weather data based ob location data
 export const weatherData = async function () {
   try {
-    const res = await fetch(
+    const res = await AJAX(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=imperial&exclude=hourly,daily&appid=${API_KEY}`
     );
 
+    const resData = await res.json();
     if (!res.ok) return res;
 
-    const resData = await res.json();
     const { ...data } = resData.current;
 
     state.weather = {

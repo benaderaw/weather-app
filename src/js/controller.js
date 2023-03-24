@@ -17,6 +17,7 @@ const controlFlag = async function () {
 
     // CATCH AND RENDER INVALID LOCATION MESSAGE
     const locationRes = await model.locationData(query);
+
     if (!locationRes.ok) {
       view.render404();
       throw new Error(`${locationRes.status}: Bad country api URL`);
@@ -24,7 +25,7 @@ const controlFlag = async function () {
 
     // CATCH BAD WEATHER API URL
     const weatherRes = await model.weatherData();
-    if (!weatherRes.ok)
+    if (!weatherRes)
       throw new Error(`${locationRes.status}: Bad weather api URL`);
 
     // RENDER FLAG
